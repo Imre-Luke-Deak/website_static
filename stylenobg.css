@@ -1,0 +1,23 @@
+body {
+line-height: 1.4;
+  font-size: 18px;
+  font-family: 'Didact Gothic', sans-serif;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+a { color: #000; text-decoration: none ;}
+
+a:hover { color: #FF5E5E ;}
+
+nav {
+    margin-left: auto;
+    margin-right: auto;
+    font-size: larger;
+    text-align: center;
+}
+
+p4 {
+text-align: right 10px
+}

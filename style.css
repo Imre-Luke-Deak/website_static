@@ -1,0 +1,32 @@
+
+body {
+background: linear-gradient(#55B0BA, #50315E) fixed;
+line-height: 1.4;
+  font-size: 18px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+body {
+       font-family: 'Didact Gothic', sans-serif
+}
+
+a:link {
+ color: #FFF ;
+ text-decoration: underline ;
+}
+
+a:hover { color: #FF5E5E ;}
+
+nav {
+    margin-left: auto;
+    margin-right: auto;
+    font-size: larger;
+    text-align: center;
+}
+
+p4 {
+text-align: right 10px
+}
