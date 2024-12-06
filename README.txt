@@ -1,10 +1,8 @@
-Files
+My personal website - data analyst
 
-1) index.html -> {Image}, bio, contact links (LinkedIn, mailto:, resume), data portfolio 
+Files included:
+1) index.html -> {Image}, bio, contact links, data portfolio 
 2) favicon
-3) folder of images?
-4) sub-pages for each project
-5) .css
-6) blogs
-7) hidden: concert archive/gallery
-8) recommended resources/sites
+3) sub-pages (wip)
+4) .css
+5) recommended resources/sites (wip)
