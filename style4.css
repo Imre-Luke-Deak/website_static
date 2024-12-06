@@ -30,6 +30,10 @@ body {
     color: white;
 }
 
+img {
+    border: 2px solid #ff533d;
+}
+
 h1 {
     color: #ff533d;
     font-size: 36px;
