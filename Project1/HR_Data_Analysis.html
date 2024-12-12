@@ -52,7 +52,7 @@ Through 15,000 observations, the data measures the following variables from empl
 To observe these variables independently, I first created a pivot table to distinguish the proportion of former employees in each department - 
 turning these values into a % of the total # of employees in their respective department gives the churn rate, the gold standard by which we will assess all other variables. <br><br>
 
-<img src="main/Project1/ChurnRateFunnel.png" alt="Figure 1: Churn rate funnel graph" width="653" height="400"> <br><br>
+<img src="website_static/Project1/ChurnRateFunnel.png" alt="Figure 1: Churn rate funnel graph" width="653" height="400"> <br><br>
 
 Looking at the funnel graph above, a lot of departments are dealing with churn rates (relative to department) in the 25% (+/- 2%) range. 
 Having highlighted the top three categories, based on relative churn rate. To understand the actual (ie. absolute) share of churn for each department with respect to the 
@@ -60,24 +60,24 @@ entire company, the pie chart below illustrates it best according to the followi
 
 Percentage of churn for department X = (100 * Number of employees who have left in department X) / Total number of employees who have left the company <br><br>
 
-<img src="Portfolio/Project1/TurnoverRate_Absolute.png" alt="Figure 2: Churn distribution across departments" width="489" height="400"> <br><br>
+<img src="website_static/Project1/TurnoverRate_Absolute.png" alt="Figure 2: Churn distribution across departments" width="489" height="400"> <br><br>
 
 The pie chart above represents the magnitude of churn across the firm. Considering the greater training costs associated with the technical & support departments, I'm shifting the 
 analysis towards these departments as they make up 35.06% of all churn (1,252 employees). While internal churn rate in HR & accounting is the greatest, the low absolute numbers 
 pose less budgeting stress on decision-making. <br><br>
 
-<img src="Portfolio/Project1/DifferenceInSatisfactionLevels.png" alt="Figure 3: Difference in satisfaction levels between the two most recent evaluations" width="695" height="400"> <br><br>
+<img src="website_static/Project1/DifferenceInSatisfactionLevels.png" alt="Figure 3: Difference in satisfaction levels between the two most recent evaluations" width="695" height="400"> <br><br>
 
 Between the two evaluations, a drop in staff morale across all departments is evident. Average satisfaction dropped 10.3% in the entire firm, which is a solid indicator of rising churn, 
 however does not help with providing a more catered solution to reducing churn in technical & support. <br><br>
 
-<img src="Portfolio/Project1/SalaryDistribution.png" alt="Figure 4: Salary distribution within departments" width="695" height="400"> <br><br>
+<img src="website_static/Project1/SalaryDistribution.png" alt="Figure 4: Salary distribution within departments" width="695" height="400"> <br><br>
 
 While the dataset doesn't specify the ranges by which salary brackets are categorised by, the distribution is fairly uniform between all departments (aside from management naturally). 
 If the data contained precise numbers, the results of running a regression analysis on {salary ~ years spent at the company} would perhaps yield noteworthy results, potentially 
 indicating a sense of professional unfulfillment which is often cited as a cause of resignation. <br><br>
 
-<img src="Portfolio/Project1/EmployeesWorkingLongHours.png" alt="Figure 5: Worked hours distribution over q3+0.5(IQR)" width="695" height="400"> <br><br>
+<img src="website_static/Project1/EmployeesWorkingLongHours.png" alt="Figure 5: Worked hours distribution over q3+0.5(IQR)" width="695" height="400"> <br><br>
 
 To visualise the distribution of employees working at the higher end tail, I created a new binary variable ('long hours') based on the following parameter: <br><br>
 
