@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+        <!-- Head/CSS referral -->
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Imre Deak: Data Analyst</title>
+        <link rel="stylesheet" type="text/css" href="style4.css">
+</head>
+        
+        <!-- Main body -->
+
+<body> <div class="container"> <div class="content">
+        
+<a name="top"></a>
+<h1> <a href="https://www.imredeak.com">Return to home page</a> </h1>
+
+
+        <br><hr style="color: white">
+
+<h3> Project #1 <br><br> HR Data Analysis - A brief investigation into churn rates across various departments </h3>
+
+<hr style="color: white"><br>
+
+<p>
+
+As the title suggests, this project is a simple yet fairly realistic glimpse into the type of ad-hoc reports any HR department could request from a data analyst,
+on top of one's usual projects. Therefore this article doesn't intend to dive into the statistical nuances of churn rates and employment trends, but rather aims to give a brief 
+open-ended overview into the common factors in an easily digestable presentation to guide future decision-making within HR. <br><br>
+Hiring and training new employees is a costly process - it's the culmination of HR's time to enquire about the specifics of the role, post the job on several platforms, 
+regularly screen through resumes, arrange select candidates for interviews (which requires a schedule deviation), several rounds of this, and once paperwork is complete, 
+it costs not only other employees' time to train the new hire, but also the firm incurring significant short-term productivity deficits. My report gives a general overview on 
+churn rates but aims to find a compromise in favour of jobs requiring greater training costs, in order to maximise the return made from a lengthy hiring process in the long run.
+   <br><br>
+
+I collected the dataset from <i><span title="{HR Staff Satisfaction, source: Anjeet R.}">kaggle</span></i>. 
+Through 15,000 observations, the data measures the following variables from employees of each department:
+<ul>
+    <li>Satisfaction level (current / time of resignation)</li>
+    <li>Satisfaction level, 3 years ago</li>
+    <li>Average hours worked per month</li>
+    <li>Number of years spent at company</li>
+    <li>Relation with company {1 if resigned/fired, 0 otherwise}</li>
+    <li>Salary (in three pre-determined brackets)</li>
+</ul> </p>
+
+<h3>Analysis</h3>
+
+<p>
+
+To observe these variables independently, I first created a pivot table to distinguish the proportion of former employees in each department - 
+turning these values into a % of the total # of employees in their respective department gives the churn rate, the gold standard by which we will assess all other variables. <br><br>
+
+<img src="Portfolio/Project1/ChurnRateFunnel.png" alt="Figure 1: Churn rate funnel graph" width="653" height="400"> <br><br>
+
+Looking at the funnel graph above, a lot of departments are dealing with churn rates (relative to department) in the 25% (+/- 2%) range. 
+Having highlighted the top three categories, based on relative churn rate. To understand the actual (ie. absolute) share of churn for each department with respect to the 
+entire company, the pie chart below illustrates it best according to the following equation: <br><br>
+
+Percentage of churn for department X = (100 * Number of employees who have left in department X) / Total number of employees who have left the company <br><br>
+
+<img src="Portfolio/Project1/TurnoverRate_Absolute.png" alt="Figure 2: Churn distribution across departments" width="489" height="400"> <br><br>
+
+The pie chart above represents the magnitude of churn across the firm. Considering the greater training costs associated with the technical & support departments, I'm shifting the 
+analysis towards these departments as they make up 35.06% of all churn (1,252 employees). While internal churn rate in HR & accounting is the greatest, the low absolute numbers 
+pose less budgeting stress on decision-making. <br><br>
+
+<img src="Portfolio/Project1/DifferenceInSatisfactionLevels.png" alt="Figure 3: Difference in satisfaction levels between the two most recent evaluations" width="695" height="400"> <br><br>
+
+Between the two evaluations, a drop in staff morale across all departments is evident. Average satisfaction dropped 10.3% in the entire firm, which is a solid indicator of rising churn, 
+however does not help with providing a more catered solution to reducing churn in technical & support. <br><br>
+
+<img src="Portfolio/Project1/SalaryDistribution.png" alt="Figure 4: Salary distribution within departments" width="695" height="400"> <br><br>
+
+While the dataset doesn't specify the ranges by which salary brackets are categorised by, the distribution is fairly uniform between all departments (aside from management naturally). 
+If the data contained precise numbers, the results of running a regression analysis on {salary ~ years spent at the company} would perhaps yield noteworthy results, potentially 
+indicating a sense of professional unfulfillment which is often cited as a cause of resignation. <br><br>
+
+<img src="Portfolio/Project1/EmployeesWorkingLongHours.png" alt="Figure 5: Worked hours distribution over q3+0.5(IQR)" width="695" height="400"> <br><br>
+
+To visualise the distribution of employees working at the higher end tail, I created a new binary variable ('long hours') based on the following parameter: <br><br>
+
+75th percentile + 0.5 * (Interquartile range) <br>
+1 = employee works beyond measure, 0 = employee works under measure <br><br>
+
+The bar chart above illustrates that the technical and sales departments work disproportionately beyond 289.5 hours per month (for reference, departments face a mean no. of hours 
+worked close to 200.0 hours/month with standard deviation of 50.0 hours/month). Support and IT departments are close behind. <br> </p>
+
+<h3>Conclusion</h3> <p> 
+
+Based on the analysis, it's clear that high churn rates are a significant issue, particularly in departments where extensive training is required, such as technical and support roles. 
+These departments contribute substantially to overall turnover, both in terms of the percentage of employees leaving and the absolute number of departures, which in turn places a 
+notable burden on the company's budget and operational efficiency. <br><br>
+
+The data suggests that rising dissatisfaction and long working hours correlate with this elevated churn, with employees in technical, sales, and support departments experiencing 
+the highest levels of burnout, marked by consistently working beyond typical thresholds. Coupled with lower salary brackets, these factors likely contribute to the lack of fulfillment 
+and increasing turnover. <br><br>
+
+<a href="#top">Back to Top</a>
+
+</p>
+
+</div> </div> </body>
+</html>
