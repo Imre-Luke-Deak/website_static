@@ -13,6 +13,8 @@ html, body {
     margin: 0;
     height: 100%;
     /*overflow-x: hidden;*/
+    display: flex;
+    flex-direction: column;
 }
 
 .container {
@@ -25,6 +27,8 @@ html, body {
     margin: 0 auto;
     min-height: 100vh;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
 }
 
 .container .content {
