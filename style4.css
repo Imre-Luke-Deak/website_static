@@ -12,7 +12,7 @@ html, body {
     color: white;
     margin: 0;
     height: 100%;
-    overflow-x: hidden;
+    /*overflow-x: hidden;*/
 }
 
 .container {
