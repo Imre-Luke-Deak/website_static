@@ -6,7 +6,7 @@
 
 /* Body */
 
-body {
+html, body {
     font-family: 'Didact Gothic', sans-serif;
     background-color: #DCC4A5;
     color: white;
