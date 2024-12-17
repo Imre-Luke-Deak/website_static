@@ -29,7 +29,7 @@ import seaborn as sns
 
 ### loading, cleaning data & visualisation palette ----
 
-df = pd.read_csv("H:/my_directory/Website_Github/Portfolio/Project2\marketing_AB.csv")
+df = pd.read_csv("H:/my_directory/Website/Portfolio/Project2\marketing_AB.csv")
 df.head()
 df.info()
 
