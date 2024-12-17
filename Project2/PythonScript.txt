@@ -27,9 +27,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-### loading & cleaning data ----
+### loading, cleaning data & visualisation palette ----
 
-df = pd.read_csv("H:/my_directory/Website/Portfolio/Project2\marketing_AB.csv")
+df = pd.read_csv("H:/my_directory/Website_Github/Portfolio/Project2\marketing_AB.csv")
 df.head()
 df.info()
 
@@ -44,6 +44,10 @@ df_cat.nunique() # equivalent of 'levels' in R.
 for i in df_cat.columns:
     print(i.upper(), ":", df_cat[i].unique())
     
+# colour palettes    
+palette = sns.color_palette("RdBu")
+pie_colors = sns.color_palette("RdBu")
+    
 ### Univariate analysis ----
 
     # test group 
@@ -53,13 +57,13 @@ variable = 'test group'
 plt.figure(figsize = (6,4))
 # Count plot
 plt.subplot(1,2,1)
-sns.countplot(x=variable, data=df_cat)
+sns.countplot(x=variable, data=df_cat, palette = palette)
 plt.title(f'Count plot - {variable}')
 
 # Pie chart
 plt.subplot(1,2,2)
 counts = df_cat[variable].value_counts()
-plt.pie(counts, labels=counts.index, autopct='%0.2f%%')
+plt.pie(counts, labels=counts.index, autopct='%0.2f%%', colors=pie_colors)
 plt.title(f'Pie chart - {variable}')
 
 # Show plot
@@ -72,13 +76,13 @@ variable = 'converted'
 plt.figure(figsize = (6,4))
 # Count plot
 plt.subplot(1,2,1)
-sns.countplot(x=variable, data=df_cat)
+sns.countplot(x=variable, data=df_cat, palette = palette)
 plt.title(f'Count plot - {variable}')
 
 # Pie chart
 plt.subplot(1,2,2)
 counts = df_cat[variable].value_counts()
-plt.pie(counts, labels=counts.index, autopct='%0.2f%%')
+plt.pie(counts, labels=counts.index, autopct='%0.2f%%', colors=pie_colors)
 plt.title(f'Pie chart - {variable}')
 
 # Show plot
@@ -91,17 +95,18 @@ variable = 'most ads day'
 plt.figure(figsize = (6,4))
 # Count plot
 plt.subplot(1,2,1)
-sns.countplot(x=variable, data=df_cat, order = df_cat['most ads day'].value_counts().index) # value_counts() does descending order arrangement.
+sns.countplot(x=variable, data=df_cat, palette = palette, order = df_cat['most ads day'].value_counts().index) # value_counts() does descending order arrangement.
 plt.title(f'Count plot - {variable}')
 plt.xticks(rotation=90)
 
 # Pie chart
 plt.subplot(1,2,2)
 counts = df_cat[variable].value_counts()
-plt.pie(counts, labels=counts.index, autopct='%0.2f%%')
+plt.pie(counts, labels=counts.index, autopct='%0.2f%%', colors=pie_colors)
 plt.title(f'Pie chart - {variable}')
 
 # Show plot
+plt.tight_layout()
 plt.show()
 
     # most ads hour 
@@ -132,12 +137,12 @@ variable = 'total ads'
 plt.figure(figsize=(6,4))
 # Histogram
 plt.subplot(1,2,1)
-sns.histplot(x=variable, data=df)
+sns.histplot(x=variable, data=df, palette=palette)
 plt.title(f'Histogram - {variable}')
 
 # Pie chart
 plt.subplot(1,2,2)
-sns.boxplot(y = variable, data = df)
+sns.boxplot(y = variable, data = df, color=pie_colors)
 plt.title(f'Boxplot - {variable}')
 
 # Layout/show plot
@@ -165,7 +170,9 @@ plt.title(f'Boxplot - {variable}')
 plt.tight_layout()
 plt.show() # <-- boxplot spread is easily visible, covers all quartiles.
 
+
 ### Bivariate analysis ----
+
 
 # Crosstab = creates a 2x2 table for two variables
 ct_conversion_test_group = pd.crosstab(df['test group'], df['converted'], normalize = 'index') 
@@ -183,8 +190,8 @@ print(ct_conversion_day.sort_values(by = True, ascending = False))
 ct_conversion_day.plot.bar(stacked = True)
 
     # Raw & filtered boxplot comparison, converted = x-axis category
-sns.boxplot(x = 'converted', y = 'total ads', data = df)
-sns.boxplot(x = 'converted', y = 'total ads', data = df[df['total ads'] < 50])
+sns.boxplot(x = 'converted', y = 'total ads', palette=palette, data = df)
+sns.boxplot(x = 'converted', y = 'total ads', palette=palette, data = df[df['total ads'] < 50])
 
 '''
 Plot above shows that the median number of times people who purchased the product saw the ad was 25,
