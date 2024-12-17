@@ -1,0 +1,263 @@
+### Project 2: A/B Test ###
+
+"""
+A/B Testing (Imre Deak)
+
+Data: https://www.kaggle.com/datasets/faviovaz/marketing-ab-testing
+Target: To measure success of an ad campaign - did it successfully alter sales? 
+
+Structure: 
+    > importing packages
+    > loading/cleaning data, basic EDA
+    > Univariate analysis (visualising variables, independent of each other)
+    > Bivariate analysis (boxplots)
+    > Statistical testing:
+        > Chi-squared test (variable dependence test)
+        > Picking suitable test based on assumption checks:
+            > T-test - if data is normalised & variance is even
+            > Mann-Whitney U test (nonparametric) - if any of the conditions above aren't met
+                > Neither met: Mann-Whitney U test
+
+"""
+
+### importing packages ----
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+### loading, cleaning data & visualisation palette ----
+
+df = pd.read_csv("H:/my_directory/Website_Github/Portfolio/Project2\marketing_AB.csv")
+df.head()
+df.info()
+
+df.duplicated(subset = 'user id').sum() # sum of total of non-distinct data points
+df.drop(['Unnamed: 0', 'user id'], axis = 1, inplace = True) # removing data index & id
+df.columns
+
+df_cat = df[['test group', 'converted', 'most ads day', 'most ads hour']] # subset of categorical variables
+df_cat.nunique() # equivalent of 'levels' in R.
+
+# listing 'levels'
+for i in df_cat.columns:
+    print(i.upper(), ":", df_cat[i].unique())
+    
+# colour palettes    
+palette = sns.color_palette("RdBu")
+pie_colors = sns.color_palette("RdBu")
+    
+### Univariate analysis ----
+
+    # test group 
+
+variable = 'test group'
+
+plt.figure(figsize = (6,4))
+# Count plot
+plt.subplot(1,2,1)
+sns.countplot(x=variable, data=df_cat, palette = palette)
+plt.title(f'Count plot - {variable}')
+
+# Pie chart
+plt.subplot(1,2,2)
+counts = df_cat[variable].value_counts()
+plt.pie(counts, labels=counts.index, autopct='%0.2f%%', colors=pie_colors)
+plt.title(f'Pie chart - {variable}')
+
+# Show plot
+plt.show()
+
+    # Conversion rates 
+
+variable = 'converted'
+
+plt.figure(figsize = (6,4))
+# Count plot
+plt.subplot(1,2,1)
+sns.countplot(x=variable, data=df_cat, palette = palette)
+plt.title(f'Count plot - {variable}')
+
+# Pie chart
+plt.subplot(1,2,2)
+counts = df_cat[variable].value_counts()
+plt.pie(counts, labels=counts.index, autopct='%0.2f%%', colors=pie_colors)
+plt.title(f'Pie chart - {variable}')
+
+# Show plot
+plt.show()
+
+    # Most ads received a day 
+
+variable = 'most ads day'
+
+plt.figure(figsize = (6,4))
+# Count plot
+plt.subplot(1,2,1)
+sns.countplot(x=variable, data=df_cat, palette = palette, order = df_cat['most ads day'].value_counts().index) # value_counts() does descending order arrangement.
+plt.title(f'Count plot - {variable}')
+plt.xticks(rotation=90)
+
+# Pie chart
+plt.subplot(1,2,2)
+counts = df_cat[variable].value_counts()
+plt.pie(counts, labels=counts.index, autopct='%0.2f%%', colors=pie_colors)
+plt.title(f'Pie chart - {variable}')
+
+# Show plot
+plt.tight_layout()
+plt.show()
+
+    # most ads hour 
+    
+variable = 'most ads hour'
+
+plt.figure(figsize = (8,4))
+# Count plot
+plt.subplot(1,2,1)
+sns.countplot(x=variable, data=df_cat, order = df_cat['most ads hour'].value_counts().index)
+plt.title(f'Count plot - {variable}')
+plt.xticks(rotation=90)
+
+# Pie chart
+plt.subplot(1,2,2)
+counts = df_cat[variable].value_counts()
+plt.pie(counts, labels=counts.index, autopct='%0.2f%%')
+plt.title(f'Pie chart - {variable}')
+
+# Show plot
+plt.tight_layout() # makes spacing nicer
+plt.show()
+
+    # total ads (non-categorical numeric) 
+    
+variable = 'total ads'
+
+plt.figure(figsize=(6,4))
+# Histogram
+plt.subplot(1,2,1)
+sns.histplot(x=variable, data=df, palette=palette)
+plt.title(f'Histogram - {variable}')
+
+# Pie chart
+plt.subplot(1,2,2)
+sns.boxplot(y = variable, data = df, color=pie_colors)
+plt.title(f'Boxplot - {variable}')
+
+# Layout/show plot
+plt.tight_layout()
+plt.show() # <-- large data N, hence many outliers. Poor visualisation w/out filter
+ 
+df['total ads'].describe() # descriptive stats
+
+    # Repeating previous plot but w/ a filter (trial and error estimation of upper boundary)
+
+variable = 'total ads'
+
+plt.figure(figsize=(6,4))
+# Histogram
+plt.subplot(1,2,1)
+sns.histplot(x=variable, data=df[df['total ads'] < 50] )
+plt.title(f'Histogram - {variable}')
+
+# Pie chart
+plt.subplot(1,2,2)
+sns.boxplot(y = variable, data = df[df['total ads'] < 50] )
+plt.title(f'Boxplot - {variable}')
+
+# Layout/show plot
+plt.tight_layout()
+plt.show() # <-- boxplot spread is easily visible, covers all quartiles.
+
+
+### Bivariate analysis ----
+
+
+# Crosstab = creates a 2x2 table for two variables
+ct_conversion_test_group = pd.crosstab(df['test group'], df['converted'], normalize = 'index') 
+ct_conversion_test_group
+ct_conversion_test_group.plot.bar(stacked = True) # visualising crosstab
+
+    # repeating w/ other variables against 'converted'
+
+ct_conversion_day = pd.crosstab(df['most ads day'], df['converted'], normalize = 'index')
+print(ct_conversion_day.sort_values(by = True, ascending = False))
+ct_conversion_day.plot.bar(stacked = True)
+
+ct_conversion_day = pd.crosstab(df['most ads hour'], df['converted'], normalize = 'index')
+print(ct_conversion_day.sort_values(by = True, ascending = False))
+ct_conversion_day.plot.bar(stacked = True)
+
+    # Raw & filtered boxplot comparison, converted = x-axis category
+sns.boxplot(x = 'converted', y = 'total ads', palette=palette, data = df)
+sns.boxplot(x = 'converted', y = 'total ads', palette=palette, data = df[df['total ads'] < 50])
+
+'''
+Plot above shows that the median number of times people who purchased the product saw the ad was 25,
+as opposed to ~10 for those who have not purchased the product (ie. converted)
+    -> repeated targeting seems to yield a higher sales rate
+
+'''
+
+### Statistical testing ----
+
+    # Chi-squared test (Automated @ 5% significance level)
+
+from scipy.stats import chi2_contingency
+
+alpha = 0.05 
+
+for variable in df_cat.columns:
+    if variable != 'converted':
+        # Create crosstab
+        contingency_table = pd.crosstab(df_cat[variable], df_cat['converted'])
+        
+        # Chi-squared test
+        chi2, p, _, _ = chi2_contingency(contingency_table)
+        
+        # Display results
+        print(f"\nChi-squared test for {variable} vs. converted:")
+        print(f"Chi-squared test value: {chi2}")
+        print(f"p-value: {p}")
+        
+        # Check for significance
+        if p < alpha:
+            print(f"The difference in conversion rates across {variable} is statistically significant.")
+        else:
+            print(f"There is no significant difference in conversion rates across {variable}.")
+   
+    # Checking assumptions for final test (t-test vs nonparametric alt.)
+    
+from scipy.stats import shapiro, levene, ttest_ind, mannwhitneyu
+
+# Normality assumption
+shapiro_stat_true, shapiro_p_value_true = shapiro(df[df['converted'] == True]['total ads'])
+shapiro_stat_false, shapiro_p_value_false = shapiro(df[df['converted'] == False]['total ads'])
+
+print(f"Shapiro-Wilk test for normality (True group): p-value - {shapiro_p_value_true}")
+print(f"Shapiro-Wilk test for normality (False group): p-value - {shapiro_p_value_false}")
+
+# Equality of variances assumption
+levene_stat, levene_p_value = levene(df[df['converted']]['total ads'], df[~df['converted']]['total ads'])
+print(f"Levene's test for equality of variances: p-value = {levene_p_value}")
+
+    # Automation of correct test based on assumption test results
+
+alpha = 0.05
+
+if shapiro_p_value_true > alpha and shapiro_p_value_false > alpha and levene_p_value > alpha:
+        # if assumptions are met - deploys t-test (based on mean)
+        t_stat, t_p_value = ttest_ind(df[df['converted']]['total ads'], df[~df['converted']]['total ads'])
+        print(f"Independent two-sample t-test: p-value = {t_p_value}")
+else:
+        # otherwise - use Mann-Whitney U test (based on median)
+        u_stat, u_p_value = mannwhitneyu(df[df['converted']]['total ads'], df[~df['converted']]['total ads'])
+        print(f"Mann-Whitney U test: p-value = {u_p_value}")
+        
+'''
+Non-parametric Mann-Whitney U test, with p-value of 0.0
+    -> There is sufficient evidence to reject null hypothesis
+        -> Median amount of total ads seen makes a statistically significant difference on aggregate purchasing decision
+
+'''
