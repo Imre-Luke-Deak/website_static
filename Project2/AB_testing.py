@@ -29,7 +29,7 @@ import seaborn as sns
 
 ### loading & cleaning data ----
 
-df = pd.read_csv("H:/my_directory/Website_Github/Portfolio/Project2\marketing_AB.csv")
+df = pd.read_csv("H:/my_directory/Website/Portfolio/Project2\marketing_AB.csv")
 df.head()
 df.info()
 
@@ -165,9 +165,7 @@ plt.title(f'Boxplot - {variable}')
 plt.tight_layout()
 plt.show() # <-- boxplot spread is easily visible, covers all quartiles.
 
-
 ### Bivariate analysis ----
-
 
 # Crosstab = creates a 2x2 table for two variables
 ct_conversion_test_group = pd.crosstab(df['test group'], df['converted'], normalize = 'index') 
