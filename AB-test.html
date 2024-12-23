@@ -79,7 +79,36 @@ greatest proportion of successful traffic ranging from 2.6% to 3.1% of converted
   
 <h3> A/B Testing between the two groups </h3> <!-- Section 3 -->
 
-<p> </p>
+<p> 
+
+Test 1: Chi-Square Test <br><br>
+
+It's important to isolate each variable against the customer conversions, and by running the Chi-Square test, we can outrule the likelihood of the association being determined by random chance. 
+Having conducted the test for each variable at a 1% significance level, a statistically significant relationship between the variables and conversion rates was found in all cases. <br><br>
+
+Test 2: A/B Test function <br><br>
+
+With a sample size as large as this data is, it's a no-brainer to run non-parametric tests in the real world, as it omits testing for the conditions necessary for parametrics tests 
+(normal distribution & equal variances assumptions). However, my goal for this analysis is to be able to use this code no matter what variation of the data gets funneled into it 
+(for instance, a particular subset of the same variables), therefore I have created a chain of functions using various tests from the SciPy package to automatically select the most appropriate 
+statistical tests regardless. 
+        <br><br>
+
+The first function tests for the assumptions required for parametric tests: the Shapiro-Wilkinson test for normal distribution (5% alpha), and Levene's test for measuring the equality of variances. 
+        <br><br>
+        
+Based on the result of these tests, the second function picks either the optimal parametric test to determine the statistical impact of the ad campaign, the t-test (compares data through the mean), 
+or its optimal non-parametric alternative, the Mann-Whitney U test (compares data through the median). 
+        <br><br>
+
+In this case, both assumption tests defied the null hypothesis (p < 0.05), meaning the data is not normally distributed and that there is heteroskedasticity in my data (variance across groups are not equal). 
+        <br><br>
+
+Therefore, it's only appropriate to run the non-parametric Mann-Whitney U test to determine the significance of the results of the ad campaign. With a p-value of 0.0, there is <bold>extremely strong 
+statistical evidence</bold> to say there is a difference between the results of the control and treatment group, implying that the ad campaign does indeed successfully increases the proportion of people who will 
+buy the product.
+
+</p>
 
 <h3> Conclusion </h3> <!-- Section 4/5 -->
   
