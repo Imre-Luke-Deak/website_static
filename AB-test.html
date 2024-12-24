@@ -90,8 +90,8 @@ Having conducted the test for each variable at a 1% significance level, a statis
 
 <u>Test 2: A/B Test Function Nest</u> <br><br>
 
-With a sample size as large as this data is, it's a no-brainer to run non-parametric tests in the real world, as it omits testing for the conditions necessary for parametrics tests 
-(normal distribution & equal variances assumptions). However, my goal for this analysis is to be able to use this code no matter what variation of the data gets funneled into it 
+With a sample size as large as this data is, it's a no-brainer to run non-parametric tests in the real world, as it omits testing for the conditions necessary for parametric tests 
+(which assume normal distribution & equal variance). However, my goal for this analysis is to be able to use this code no matter what variation of the data gets funneled into it 
 (for instance, a particular subset of the same variables), therefore I have created a chain of functions using various tests from the SciPy package to automatically select the most appropriate 
 statistical tests regardless. 
         <br><br>
