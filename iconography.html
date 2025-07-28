@@ -35,11 +35,14 @@
       align-items: center;
     }
 
-    figure img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
+  figure img {
+    max-height: 200px; /* or any value you prefer */
+    width: auto;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    margin: 0 auto;
+  }
 
     figcaption {
       padding: 10px;
